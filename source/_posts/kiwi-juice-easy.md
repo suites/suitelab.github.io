@@ -17,11 +17,16 @@ header-img: img/post-bg-miui6.jpg
 ---
 
 ## 문제
-타로는 맛있는 키위 주스를 준비했습니다. 타로는 0부터 N-1이라 이름을 붙인 N개의 병에 키위 주스를 넣었습니다. 이때 i번째의 병의 용량은 capacities[i] 리터이며 타로가 i번째 병에 넣은 키위 주스의 양을 bottles[i] 리터라고 합니다.
+타로는 맛있는 키위 주스를 준비했습니다.  
+타로는 0부터 N-1이라 이름을 붙인 N개의 병에 키위 주스를 넣었습니다.  
+이때 i번째의 병의 용량은 capacities[i] 리터이며 타로가 i번째 병에 넣은 키위 주스의 양을 bottles[i] 리터라고 합니다.
 
-타로는 병에 키위 주스를 재분배하려고 하며, 0부터 M-1까지 M회 조작합니다. i번쨰의 조작은 타로가 병 fromId[i]부터 병 toId[i]에 키위 주스를 넣는 것을 의미합니다. 병 fromId[i]가 비어 있거나 병 toId[i]가 꽉 차 있는 순간, 타로는 더 이상 키위 주스를 넣지 않습니다.
- 
-N개의 요소를 가진 정수 배열 int[]를 리턴해주세요. 배열의 i번째 요소는 모든 주스를 쏟는 작업이 완료되고 i번째 병에 남아 있는 키위 주스의 양입니다.
+타로는 병에 키위 주스를 재분배하려고 하며, 0부터 M-1까지 M회 조작합니다.  
+i번쨰의 조작은 타로가 병 fromId[i]부터 병 toId[i]에 키위 주스를 넣는 것을 의미합니다.  
+병 fromId[i]가 비어 있거나 병 toId[i]가 꽉 차 있는 순간, 타로는 더 이상 키위 주스를 넣지 않습니다.
+
+N개의 요소를 가진 정수 배열 int[]를 리턴해주세요.  
+배열의 i번째 요소는 모든 주스를 쏟는 작업이 완료되고 i번째 병에 남아 있는 키위 주스의 양입니다.
 
 ## 정의
 ```py
@@ -37,3 +42,49 @@ toId : fromId와 같은 수의 요소가 있는 배열
 
 ## 출력
 병들에 남아있는 주스의 양을 담고 있는 배열
+
+## 1차 코드
+```py
+class KiwiJuiceEasy:
+    def the_pouring(self, capacities, bottles, from_id, to_id):
+        ret = []
+
+        for i in range(len(from_id)):
+            from_i = from_id[i]
+            to_i = to_id[i]
+
+            # 옮길 병이 비어있으면 중단
+            if bottles[from_i] == 0:
+                continue
+
+            # 담길 병이 꽉 차있으면 중단
+            if bottles[to_i] == capacities[to_i]:
+                continue
+
+            # 옮길 병의 용량보다 from + to의 내용물이 적거나 같으면 bottles[to_i]에 주스를 옮김.
+            if bottles[from_i] + bottles[to_i] <= capacities[to_i]:
+                bottles[to_i] += bottles[from_i]
+                bottles[from_i] = 0
+
+            # 옮길 병의 용량보다 from + to의 내용물이 많으면  bottles[to_i]에 주스를 옮기고 나머지를 from에 남김.
+            elif bottles[from_i] + bottles[to_i] > capacities[to_i]:
+                tmp = bottles[to_i] + bottles[from_i] - capacities[to_i]
+                bottles[to_i] = capacities[to_i]
+                bottles[from_i] = tmp
+
+        # 모든 bottles를 ret에 담음
+        for bottle in bottles:
+            ret.append(bottle)
+
+        return ret
+```
+
+### 2차 코드
+
+
+
+
+
+
+
+
