@@ -8,7 +8,7 @@ published: true
 header-img: img/post-bg-miui6.jpg
 comments: true
 insearch: true
-title: 탑코더 알고리즘 정복 - 시작하기
+title: 탑코더 알고리즘 정복 시-리즈
 categories:
   - Algorithm
   - Top Coder
