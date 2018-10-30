@@ -59,6 +59,24 @@ prose:
         field:
           element: "hidden"
           value: 1.0
+      - name: "categories"
+        field:
+          element: "multiselect"
+          label: "Choose categories"
+          placeholder: "Choose categories"
+          options:
+            - name: "Algorithm"
+              value: "Algorithm"
+            - name: "Top Coder"
+              value: "Top Coder"
+            - name: "Deep Learning"
+              value: "Deep Learning"
+            - name: "Basic"
+              value: "Basic"
+            - name: "Kaggle"
+              value: "Kaggle"
+            - name: "NLP"
+              value: "NLP"
       - name: "tags"
         field:
           element: "multiselect"
