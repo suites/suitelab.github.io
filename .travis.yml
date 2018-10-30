@@ -1,15 +1,12 @@
 language: node_js
-
 node_js:
-  - "9" # 사용하고 싶은 node.js 버전을 지정합니다.
-
+- "9"
+# Hexo source 코드는 source branch에서 작업되고 있어야합니다.
 branches:
   only:
-  - source # 소스 파일이 존재하는 브랜치입니다. 참고 문서에서는 source이지만 저는 local를 사용해왔습니다.
-
+  - source
 before_install:
 - npm install -g hexo
-
 install:
 - npm install
 
