@@ -15,7 +15,6 @@ tags:
   - Algorithm
   - 시뮬레이션
   - Python
-header-img: img/post-bg-miui6.jpg
 ---
 
 ## 문제
@@ -112,13 +111,13 @@ class KiwiJuiceEasy:
             if bottles[to_i] == capacities[to_i]:
                 continue
 
-            # 옮길 병의 용량보다 from + to의 내용물이 적거나 같으면 
+            # 옮길 병의 용량보다 from + to의 내용물이 적거나 같으면
             # bottles[to_i]에 주스를 옮김.
             if bottles[from_i] + bottles[to_i] <= capacities[to_i]:
                 bottles[to_i] += bottles[from_i]
                 bottles[from_i] = 0
 
-            # 옮길 병의 용량보다 from + to의 내용물이 많으면 
+            # 옮길 병의 용량보다 from + to의 내용물이 많으면
             # bottles[to_i]에 주스를 옮기고 나머지를 from에 남김.
             elif bottles[from_i] + bottles[to_i] > capacities[to_i]:
                 tmp = bottles[to_i] + bottles[from_i] - capacities[to_i]
@@ -146,7 +145,7 @@ class KiwiJuiceEasy:
             f = from_id[i]
             t = to_id[i]
 
-            # 옮길 주스의 양과 기존 주스 병의 남은 용량을 비교해 
+            # 옮길 주스의 양과 기존 주스 병의 남은 용량을 비교해
             # 작은 것이 이동량이 된다.
             vol = min(bottles[f], capacities[t] - bottles[t])
 

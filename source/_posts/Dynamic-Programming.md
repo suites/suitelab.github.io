@@ -4,7 +4,6 @@ title:      "Dynamic Programming"
 subtitle:   "이론"
 date:       2017-09-14
 author:     "Yoon.Homme"
-header-img: "img/post-bg-miui6.jpg"
 header-mask: 0.3
 catalog:    true
 categories:

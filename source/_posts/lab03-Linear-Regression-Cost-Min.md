@@ -4,7 +4,6 @@ title:      "딥러닝 강의 lec 03"
 subtitle:   "딥러닝"
 date:       2017-10-19
 author:     "Yoon.Homme"
-header-img: "img/in-post/2017-10-19/output_11_0.png"
 header-mask: 0.3
 catalog:    true
 categories:

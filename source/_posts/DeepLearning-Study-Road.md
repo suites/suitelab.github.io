@@ -3,7 +3,6 @@ layout: post
 title: 딥러닝 공부 커리큘럼
 date: 2018-03-14
 author: Yoon.Homme
-header-img: img/post-bg-miui6.jpg
 header-mask: 0.3
 catalog: true
 comments: true

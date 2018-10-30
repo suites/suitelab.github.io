@@ -4,7 +4,6 @@ sitemap-changefreq: daily
 layout: post
 date: '2018-03-19 15:41 +0900'
 published: true
-header-img: img/post-bg-miui6.jpg
 comments: true
 insearch: true
 title: kaggle Titanic 머신러닝 입문기
@@ -169,7 +168,7 @@ sns.countplot(data=train, x="Embarked", hue="Survived")
 
 
 
-![png](/img/in-post/2018-05-07/output_5_1.png)
+![png](/images/20180507/output_5_1.png)
 
 
 
@@ -1289,7 +1288,7 @@ dot_tree = export_graphviz(model,
 ```
 
 
-![svg](/img/in-post/2018-05-07/output_27_0.svg)
+![svg](/images/20180507/output_27_0.svg)
 
 ## Predict
 

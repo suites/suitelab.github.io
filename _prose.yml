@@ -2,7 +2,7 @@ prose:
   rooturl: 'source/_posts'
   siteurl: 'https://suitelab.github.io/'
   relativeLinks: 'http://prose.github.io/starter/links.jsonp'
-  media: 'media'
+  media: 'images/CURRENT_DATETIME'
   ignore:
     - index.md
     - _config.yml
@@ -36,11 +36,6 @@ prose:
         field:
           element: "hidden"
           value: "post"
-      - name: "header-img"
-        field:
-          element: "text"
-          label: "상단 이미지 경로"
-          value: "img/post-bg-miui6.jpg"
       - name: "comments"
         field:
           element: "checkbox"

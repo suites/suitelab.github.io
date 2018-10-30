@@ -23,7 +23,7 @@ header-img: img/post-bg-miui6.jpg
 아래의 그림을 보면서 이해하면 느낌이 올 것이다.
 노란색은 선택된 항목, 주황색은 최소 값이다.
 
-![png](/img/in-post/2018-08-29/selection-sort.png)
+![png](/images/20180829/selection-sort.png)
 
 ## 소스코드
 역시 개발자는 소스코드로 확인하는 편이 이해가 빠르다.

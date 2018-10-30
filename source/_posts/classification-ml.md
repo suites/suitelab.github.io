@@ -13,7 +13,6 @@ categories:
   - Basic
 tags:
   - Python
-header-img: img/post-bg-miui6.jpg
 ---
 ## 지도 학습(supervised learning)
 
