@@ -2,7 +2,7 @@ prose:
   rooturl: 'source/_posts'
   siteurl: 'https://suitelab.github.io/'
   relativeLinks: 'http://prose.github.io/starter/links.jsonp'
-  media: 'images/CURRENT_DATETIME'
+  media: '/images'
   ignore:
     - index.md
     - _config.yml
