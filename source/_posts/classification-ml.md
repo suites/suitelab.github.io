@@ -9,8 +9,8 @@ insearch: true
 title: 머신러닝의 네가지 분류
 published_on: '2018-10-21'
 categories:
-- Deep Learning
-- Basic
+  - Deep Learning
+  - Basic
 tags:
   - Python
 header-img: img/post-bg-miui6.jpg
