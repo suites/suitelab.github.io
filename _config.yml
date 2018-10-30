@@ -6,7 +6,7 @@
 title: suite.lab 기술 블로그
 subtitle: 이름만 거창한 윤옴므의 기술 블로그.
 description: 이름만 거창한 윤옴므의 기술 블로그.
-keywords: 딥러닝, Deep Learning, 블로그, blog
+keywords: 알고리즘, 딥러닝, Deep Learning, 블로그, blog
 author: Woosik Yoon
 language: ko
 timezone: Asia/Seoul
@@ -83,7 +83,7 @@ theme: hueman
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/suitelab/suitelab.github.io.git
+  repo: https://__GITHUB_TOKEN__@github.com/suitelab/suitelab.github.io.git
   branch: master
 
 plugins: hexo-generator-robotstxt
@@ -92,9 +92,3 @@ robotstxt:
   User-agent: '*'
   Allow: /
   Sitemap: /sitemap.xml
-
-# hexo-admin authentification
-admin:
-  username: suitelab
-  password_hash: $2a$10$9/oLRVbTj4IpsUOrfrB1vOBDZIBse3FDIB3e1urxnWoyqcKtfDbT6
-  secret: secret
