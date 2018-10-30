@@ -170,8 +170,6 @@ class KiwiJuiceEasy:
 class KiwiJuiceEasy:
     def the_pouring(self, capacities, bottles, from_id, to_id):
         for i in range(len(from_id)):
-            # 기존 주스(bottles[to_id[i]]) : min(from + to 주스, 기존 주스 병의 용량)
-            # 옮길 주스(bottles[from_id[i]]) : (from + to 주스) - 기존 주스
             sum = bottles[from_id[i]] + bottles[to_id[i]]
             bottles[to_id[i]] = min(sum, capacities[to_id[i]])
             bottles[from_id[i]] = sum - bottles[to_id[i]]
