@@ -44,6 +44,7 @@ toId : fromId와 같은 수의 요소가 있는 배열
 병들에 남아있는 주스의 양을 담고 있는 배열
 
 ## 1차 코드
+1차로 작성한 코드는
 ```py
 class KiwiJuiceEasy:
     def the_pouring(self, capacities, bottles, from_id, to_id):
@@ -53,11 +54,11 @@ class KiwiJuiceEasy:
             from_i = from_id[i]
             to_i = to_id[i]
 
-            # 옮길 병이 비어있으면 중단
+            # 옮길 병이 비어있으면 pass
             if bottles[from_i] == 0:
                 continue
 
-            # 담길 병이 꽉 차있으면 중단
+            # 담길 병이 꽉 차있으면 pass
             if bottles[to_i] == capacities[to_i]:
                 continue
 
@@ -80,7 +81,37 @@ class KiwiJuiceEasy:
 ```
 
 ### 2차 코드
+```py
+class KiwiJuiceEasy:
+    def the_pouring(self, capacities, bottles, from_id, to_id):
+        for i in range(len(from_id)):
+            f = from_id[i]
+            t = to_id[i]
 
+            # 옮길 주스의 양과 기존 주스 병의 남은 용량을 비교해 작은 것이 이동량이 된다.
+            vol = min(bottles[f], capacities[t] - bottles[t])
+
+            # 옮길 주스 병에 이동량을 뺀다.
+            bottles[f] -= vol
+            # 기존 주스 병의 남은 용량에 이동량을 더한다.
+            bottles[t] += vol
+
+        return bottles
+```
+
+### 3차 코드
+```py
+class KiwiJuiceEasy:
+    def the_pouring(self, capacities, bottles, from_id, to_id):
+        for i in range(len(from_id)):
+            # 기존 주스(bottles[to_id[i]]) : min(from + to 주스, 기존 주스 병의 용량)
+            # 옮길 주스(bottles[from_id[i]]) : (from + to 주스) - 기존 주스
+            sum = bottles[from_id[i]] + bottles[to_id[i]]
+            bottles[to_id[i]] = min(sum, capacities[to_id[i]])
+            bottles[from_id[i]] = sum - bottles[to_id[i]]
+
+        return bottles
+```
 
 
 
