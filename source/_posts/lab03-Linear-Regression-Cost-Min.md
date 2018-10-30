@@ -80,7 +80,7 @@ plt.show()
 ```
 
 
-![png](/img/in-post/2017-10-19/output_11_0.png)
+![png](/images/20171019/output_11_0.png)
 
 # Gradient descent
 우리의 cost 같이 밥그릇 모양의 그래프일 때 사용하는 알고리즘

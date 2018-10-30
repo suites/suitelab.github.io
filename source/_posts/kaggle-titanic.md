@@ -315,7 +315,7 @@ sns.lmplot(data=low_fare, x="Age", y="Fare", hue="Survived", fit_reg=False)
 
 
 
-![png](/img/in-post/2018-05-07/output_7_1.png)
+![png](/images/20180507/output_7_1.png)
 
 ## Reload Dataset
 

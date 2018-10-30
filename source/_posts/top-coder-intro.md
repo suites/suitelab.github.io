@@ -2,8 +2,7 @@
 sitemap-priority: 1
 sitemap-changefreq: daily
 layout: post
-date: '2018-10-31 02:22 +0900'
-published_on: '2018-10-30 02:22 +0900'
+date: '2018-10-30 02:22 +0900'
 published: true
 header-img: img/post-bg-miui6.jpg
 comments: true
@@ -31,5 +30,3 @@ tags:
 
 여지껏 블로그 포스팅에 게을렀지만, 이번엔 이 빨간책의 문제와 해결방법을 비정기적이지만 매일 한 문제 이상 포스팅할 예정이다.  
 ~~작심삼일이 아니길..~~
-
-
