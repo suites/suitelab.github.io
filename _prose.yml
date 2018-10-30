@@ -62,8 +62,8 @@ prose:
       - name: "categories"
         field:
           element: "multiselect"
-          label: "Choose categories"
-          placeholder: "Choose categories"
+          label: "카테고리 추가"
+          placeholder: "카테고리를 골라주세요."
           options:
             - name: "Algorithm"
               value: "Algorithm"
@@ -80,9 +80,15 @@ prose:
       - name: "tags"
         field:
           element: "multiselect"
-          label: "Add Tags"
-          placeholder: "Choose Tags"
+          label: "태그 추가"
+          placeholder: "태그를 골라주세요."
           options:
+            - name: "Algorithm"
+              value: "Algorithm"
+            - name: "시뮬레이션"
+              value: "시뮬레이션"
+            - name: "전체 탐색"
+              value: "전체 탐색"
             - name: "Deep Learning"
               value: "Deep Learning"
             - name: "Python"
@@ -103,8 +109,6 @@ prose:
               value: "Tensorflow"
             - name: "NLP"
               value: "NLP"
-            - name: "Algorithm"
-              value: "Algorithm"
     _posts/static:
       - name: "layout"
         field:
