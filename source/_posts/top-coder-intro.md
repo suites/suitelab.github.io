@@ -8,6 +8,7 @@ header-img: img/post-bg-miui6.jpg
 comments: true
 insearch: true
 title: 탑코더 알고리즘 정복 시-리즈
+published_on: '2018-10-30'
 categories:
   - Algorithm
   - Top Coder
