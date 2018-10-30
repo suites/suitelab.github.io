@@ -1,6 +1,0 @@
-[submodule "themes/hueman"]
-	path = themes/hueman
-	url = https://gitlab.com/suitelab/hueman
-[submodule "hueman"]
-	path = hueman
-	url = https://gitlab.com/suitelab/hueman
