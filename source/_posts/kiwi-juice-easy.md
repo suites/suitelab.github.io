@@ -12,8 +12,9 @@ categories:
   - Algorithm
   - Top Coder
 tags:
-  - Python
   - Algorithm
+  - 시뮬레이션
+  - Python
 header-img: img/post-bg-miui6.jpg
 ---
 
@@ -190,8 +191,3 @@ class KiwiJuiceEasy:
 
 - **조건문을 되도록 조금 사용하기.
   모든 문제가 Example에서 모든 Testcase를 주는 것은 아니기 때문에 가능한 조건문을 적게 사용해 버그를 줄여야 한다.
-
-
-
-
-
