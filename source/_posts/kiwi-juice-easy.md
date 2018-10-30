@@ -44,7 +44,10 @@ toId : fromId와 같은 수의 요소가 있는 배열
 병들에 남아있는 주스의 양을 담고 있는 배열
 
 ## 1차 코드
-1차로 작성한 코드는
+1차로 작성한 코드는 모든 경우의 수를 나열하려고 노력했었던 것 같다.  
+모든 5개의 테스트케이스는 통과했지만,
+조건문을 4개나 사용하고 작업 후에 return배열에 새로 담는 불필요한 행동까지 하면서 메모리와 소스코드의 난독화를 유발한 것 같다.
+
 ```py
 class KiwiJuiceEasy:
     def the_pouring(self, capacities, bottles, from_id, to_id):
@@ -58,7 +61,7 @@ class KiwiJuiceEasy:
             if bottles[from_i] == 0:
                 continue
 
-            # 담길 병이 꽉 차있으면 pass
+            # 담길 병이 꽉차있으면 pass
             if bottles[to_i] == capacities[to_i]:
                 continue
 
