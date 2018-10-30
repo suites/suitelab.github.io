@@ -1,0 +1,99 @@
+prose:
+  rooturl: '_posts'
+  siteurl: 'https://suitelab.github.io/'
+  relativeLinks: 'http://prose.github.io/starter/links.jsonp'
+  media: 'media'
+  ignore:
+    - index.md
+    - _config.yml
+    - /_layouts
+    - /_includes
+  metadata:
+    _posts:
+      - name: "date"
+        field:
+          element: "hidden"
+          value: "CURRENT_DATETIME"
+      - name: "title"
+        field:
+          element: "text"
+          label: "Title"
+          placeholder: "포스트 제목을 입력해주세요."
+          value: ""
+      - name: "published_on"
+        field:
+          element: "text"
+          label: "포스트 게시일자"
+          placeholder: "yyyy-mm-dd형태로 입력해주세요."
+          value: "CURRENT_DATETIME"
+      - name: "published"
+        field:
+          element: "checkbox"
+          label: "지금 게시"
+          help: "게시를 원치 않을경우 체크해제해주세요."
+          value: "true"
+      - name: "layout"
+        field:
+          element: "hidden"
+          value: "post"
+      - name: "header-img"
+        field:
+          element: "text"
+          label: "상단 이미지 경로"
+          value: "img/post-bg-miui6.jpg"
+      - name: "comments"
+        field:
+          element: "checkbox"
+          label: "Disqus 포함 여부"
+          value: "true"
+      - name: "insearch"
+        field:
+          element: "checkbox"
+          label: "검색 노출 여부"
+          value: "true"
+      - name: "sitemap-changefreq"
+        field:
+          element: "hidden"
+          value: "daily"
+      - name: "sitemap-priority"
+        field:
+          element: "hidden"
+          value: 1.0
+      - name: "tags"
+        field:
+          element: "multiselect"
+          label: "Add Tags"
+          placeholder: "Choose Tags"
+          options:
+            - name: "Deep Learning"
+              value: "Deep Learning"
+            - name: "Python"
+              value: "Python"
+            - name: "GitHub"
+              value: "GitHub"
+            - name: "AWS"
+              value: "AWS"
+            - name: "Machine Learning"
+              value: "Machine Learning"
+            - name: "Server"
+              value: "Server"
+            - name: "Linux"
+              value: "Linux"
+            - name: "Database"
+              value: "Database"
+            - name: "Tensorflow"
+              value: "Tensorflow"
+            - name: "NLP"
+              value: "NLP"
+            - name: "Algorithm"
+              value: "Algorithm"
+    _posts/static:
+      - name: "layout"
+        field:
+          element: "hidden"
+          value: "page"
+      - name: "permalink"
+        field:
+          element: "text"
+          label: "Permalink"
+          value: ""
