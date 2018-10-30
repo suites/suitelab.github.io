@@ -24,8 +24,10 @@ header-img: img/post-bg-miui6.jpg
 N개의 요소를 가진 정수 배열 int[]를 리턴해주세요. 배열의 i번째 요소는 모든 주스를 쏟는 작업이 완료되고 i번째 병에 남아 있는 키위 주스의 양입니다.
 
 ## 정의
-Class : KiwiJuiceEasy
-Method : def thePouring(capacities, bottles, fromId, told)
+```py
+def KiwiJuiceEasy(self):
+	def thePouring(self, capacities, bottles, fromId, told):
+```
 
 ## 입력
 capacities : 2~50개의 요소가 있는 배열, 각 요소는 1 <= N <= 1000000 사이의 값을 갖는다.
@@ -35,4 +37,3 @@ toId : fromId와 같은 수의 요소가 있는 배열
 
 ## 출력
 병들에 남아있는 주스의 양을 담고 있는 배열
-
