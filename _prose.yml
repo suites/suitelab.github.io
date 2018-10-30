@@ -1,5 +1,5 @@
 prose:
-  rooturl: '_posts'
+  rooturl: 'source/_posts'
   siteurl: 'https://suitelab.github.io/'
   relativeLinks: 'http://prose.github.io/starter/links.jsonp'
   media: 'media'
