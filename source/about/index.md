@@ -44,7 +44,7 @@ email : woosiks.io@gmail.com
 # 공부할 기술들
 
 ## Languages
-- [] JAVA
+- [ ] JAVA
 - [] JavaScript
 - [] HTML5
 
