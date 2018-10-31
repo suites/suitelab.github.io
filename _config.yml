@@ -5,8 +5,8 @@
 # Site
 title: suite.lab 기술 블로그
 subtitle: 이름만 거창한 윤옴므의 기술 블로그.
-description: 이름만 거창한 윤옴므의 기술 블로그.
-keywords: 알고리즘, 딥러닝, Deep Learning, 블로그, blog
+description: 이름만 거창한 윤옴므의 기술 블로그. 개발자로 성장하며 익힌 기술과 경험, 지식을 공유합니다.
+keywords: Algorithm, Deep Learning, blog, 기술 면접, 코딩 테스트, 개발, 웹 개발
 author: Woosik Yoon
 language: ko
 timezone: Asia/Seoul
@@ -45,7 +45,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
 
 # Home page setting
