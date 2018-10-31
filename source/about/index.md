@@ -44,17 +44,17 @@ email : woosiks.io@gmail.com
 # 공부할 기술들
 
 ## Languages
-- [ ] JAVA
-- [] JavaScript
-- [] HTML5
+[ ] JAVA
+[ ] JavaScript
+[ ] HTML5
 
 ## Frameworks
-- [] Spring
-- [] Django(고급 활용)
+[ ] Spring
+[ ] Django(고급 활용)
 
 ## Tools
-- [] Eclipse
-- [] IntelliJ IDEA
+[ ] Eclipse
+[ ] IntelliJ IDEA
 
 ## SCM
-- [] Git(고급 활용)
+[ ] Git(고급 활용)
