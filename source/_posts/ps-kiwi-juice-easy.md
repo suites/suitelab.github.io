@@ -31,7 +31,7 @@ N개의 요소를 가진 정수 배열 int[]를 리턴해주세요.
 
 ## 정의
 ```py
-def KiwiJuiceEasy(self):
+class KiwiJuiceEasy:
 	def thePouring(self, capacities, bottles, fromId, told):
 ```
 
