@@ -89,6 +89,8 @@ class InterestingDigits:
         return ans
 ```
 ### 2차 코드
+
+> 작성중
 ```py
 
 ```
