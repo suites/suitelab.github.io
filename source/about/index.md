@@ -2,6 +2,7 @@
 title: About
 date: 2018-10-31 11:09:17
 ---
+
 # 안녕하세요. 윤우식입니다.
 글재주는 없지만 개발을 좋아하고 기술적 경험을 공유하는 것을 즐겨합니다. 그래서 이 블로그를 통해 더 많은 사람들과 나누고 배우고자 합니다.
 
@@ -13,49 +14,19 @@ date: 2018-10-31 11:09:17
 
 email : woosiks.io@gmail.com
 
-hi!332222
-
-<i class="fa fa-motorcycle"></i>
 
 # 경험해본 기술들
-
-## Languages
-- Python
-- C#
-- MS SQL
-
-## Frameworks
-- Django
-- Tensorflow
-- Keras
-- .net framework
-
-## Tools
-- Visual Studio
-- PyCharm
-- AWS
-- Google Cloud Console
-- SQL Server Management Studio
-
-## SCM
-- Git
-- Source Safe
-- Team Foundation Server
+| Category | Techs |
+| ---------- | :--------- |
+| <i class="fa fa-book fa-1x" aria-hidden="true"/> Languages | - Python <br> - C# <br> - MS SQL
+| <i class="fa fa-suitcase fa-1x" aria-hidden="true"/> Frameworks | - Django <br> - Tensorflow <br> - Keras <br> - .net framework |
+| <i class="fa fa-cog fa-1x" aria-hidden="true"/> Tools | - Visual Studio <br> - PyCharm <br> - AWS <br> - Google Cloud Console <br> - SQL Server Management Studio |
+| <i class="fa fa-archive fa-1x" aria-hidden="true"/> SCM | - Git <br> - Source Safe <br> - Team Foundation Server |
 
 # 공부할 기술들
-
-## Languages
--  JAVA
--  JavaScript
--  HTML5
-
-## Frameworks
--  Spring
--  Django(고급 활용)
-
-## Tools
--  Eclipse
--  IntelliJ IDEA
-
-## SCM
--  Git(고급 활용)
+| Category | Techs |
+| ---------- | :--------- |
+| <i class="fa fa-book fa-1x" aria-hidden="true"/> Languages | - JAVA <br> - JavaScript <br> - HTML5
+| <i class="fa fa-suitcase fa-1x" aria-hidden="true"/> Frameworks | -  Spring <br> -  Django(고급 활용) |
+| <i class="fa fa-cog fa-1x" aria-hidden="true"/> Tools | -  Eclipse <br> -  IntelliJ IDEA |
+| <i class="fa fa-archive fa-1x" aria-hidden="true"/> SCM | - Git(고급 활용) |
