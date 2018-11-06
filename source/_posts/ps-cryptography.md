@@ -34,10 +34,7 @@ class Cryptography:
 ```
 
 ## 입력
-first : 1~50개의 요소가 있는 배열.
-second : 1~50개의 요소가 있는 배열.
-first, second 공통 : 각 요소는 1~15개 문자이며, 각 문자는 영어 소문자입니다.
-i번째 요소 first[i]와 second[i]의 내용은 다릅니다.
+numbers : 2~50개의 요소가 있는 배열이며 각 요소의 값은 1~1000입니다.
 
 
 ## 출력
@@ -46,11 +43,62 @@ i번째 요소 first[i]와 second[i]의 내용은 다릅니다.
 ## IO Example
 ```py
 # Case# 0
+numbers=[1, 2, 3]
+returns=12
+
+# Case# 1
+numbers=[1, 3, 2, 1, 1, 3]
+returns=36
+
+# Case# 2
+numbers=[1000, 999, 998, 997, 996, 995]
+returns=986074810223904000
+
+# Case# 3
+numbers=[1, 1, 1, 1]
+returns=2
 ```
 
 ## 구현
 
 ### 1차 코드
+1. +1 하는 숫자를 정한다.
+2. 그리고 모든 곱을 계산하고 최댓값을 선택한다.
+
+```py
+class Cryptography:
+    def encrypt(self, numbers):
+        ans = 0
+        for i in range(len(numbers)):
+            temp = 1
+            for j in range(len(numbers)):
+                if i == j:
+                    temp *= numbers[i] + 1
+                else:
+                    temp *= numbers[j]
+
+            ans = max(ans, temp)
+
+        return ans
+```
+
+### 2차 코드
+1. +1 하는 숫자는 최소값.
+2. 그리고 모든 곱을 계산한다.
+```py
+class Cryptography:
+    def encrypt(self, numbers):
+        ans = 1
+
+        numbers = sorted(numbers)
+        numbers[0] += 1
+
+        for number in numbers:
+            ans *= number
+
+        return ans
+```
 
 ## 마무리
-- **마무리1**
+- **수학적 지식이 있으면 좋다**  
+수학적 지식이 있다면 2차 코드처럼 간결하게 바로 풀었겠지만 그렇지 않더라도 전체 탐색으로 해결할 수 있었다.
