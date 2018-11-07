@@ -89,11 +89,22 @@ class InterestingDigits:
         return ans
 ```
 ### 2차 코드
-
-> 작성중
+수학적인 방법으로 풀면  
+이번 문제가 요구하는 답은 (n-1)과 그 약수이다. 그러므로 그 답만 구하면 된다.
 ```py
+class InterestingDigits:
+    def digits(self, base):
+        ans = []
 
+        for i in range(2, base):
+            if ((base - 1) % i) == 0:
+                ans.append(i)
+
+        return ans
 ```
 
 ## 마무리
-- **마무리1**
+- **단순한 전체 탐색**
+모든 경우를 샅샅이 뒤지는 탐색을 하는 것은 사실 간단하지 않고 이 문제가 전체 탐색으로 풀 수 있는 문제인지  
+눈치채기 쉽지 않다.  
+그러므로 관련된 문제를 많이 접해보면서 익숙해지는 것이 좋다.
