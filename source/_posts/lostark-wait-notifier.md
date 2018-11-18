@@ -128,7 +128,7 @@ django는 몇 번 사용해봤지만 flask는 이런 작은 서비스에 어울�
 
 flask에 대한 자세한 내용은 이 글의 주제에서 벗어나기 때문에 다음에 더욱 다뤄보도록 하겠다.  
 <div align="middle">
-    <img src="/images/20181118/plus1.png">
+    <img src="/images/20181118/plus_1.png">
 </div>
 플러스친구 계정을 만든 후 스마트채팅-API가 사진과 같이 설정 되어있어야한다.
 
@@ -193,7 +193,7 @@ def Message():
 로스트아크 인벤에서도 많은 분들이 이용해주시고 계신다.
 
 <div align="middle">
-    <img src="/images/20181118/plus2.png">
+    <img src="/images/20181118/plus_2.png">
 </div>
 <https://pf.kakao.com/_dcPGj>
 
