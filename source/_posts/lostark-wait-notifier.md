@@ -3,7 +3,7 @@ sitemap-priority: 1
 sitemap-changefreq: daily
 layout: post
 date: '2018-11-18 19:00 +0900'
-published: false
+published: true
 comments: true
 insearch: true
 title: 로스트아크 대기열 카카오톡 알림봇 개발기
