@@ -22,6 +22,14 @@ tags:
 > 서비스 링크 : <https://pf.kakao.com/_dcPGj>  
 > Github 링크 : <https://github.com/suitelab/lostark-wait-notifier>
 
+## 들어가기 전에
+<http://loaq.kr/>는 데이터 재배포를 금지하고 있습니다!  
+이 게시물은 기존에 만들었던 서비스로써 현재의 운영방법이 아닙니다. 후기로만 봐주세요!
+
+현재 운영중인 서비스의 개발 후기는  
+<http://suitee.me/2018/11/18/lostark-wait-notifier-2/>에 올려두었습니다.
+
+
 <div align="middle">
     <img src="/images/20181118/loa1.png" width="300px">
 </div>
