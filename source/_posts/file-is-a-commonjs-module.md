@@ -23,7 +23,7 @@ tags:
 `const http = require('http');` require등을 사용할 때 발생하고 덕분에 require가 자동완성도 되지않는다.
 
 <div align="middle">
-    <img src="/images/20181204/message.png" width="400px">
+    <img src="/images/20181204/message.png">
 </div>
 
 ## 해결방법
@@ -37,13 +37,13 @@ tags:
 `Javascript > Suggestion Actions: Enabled` 의 체크를 해제한다.
 
 <div align="middle">
-    <img src="/images/20181204/message1.png" width="400px">
+    <img src="/images/20181204/message1.png">
 </div>
 
 이후 더이상의 경고는 발생하지 않았다!
 
 <div align="middle">
-    <img src="/images/20181204/message2.png" width="400px">
+    <img src="/images/20181204/message2.png">
 </div>
 
 필자의 경우에는 성가심 해결이 먼저여서 우선 조치를 취했지만, 이 메세지에 관해서 자세히 알고 싶은 사람은 다음 vscode의 Issue를 들여다 보면 도움이 될 것 같다.  
