@@ -3,7 +3,7 @@ menu:
     Home: /
     # Delete this row if you don't want categories in your header nav bar
     Categories:
-    About: /about
+    About: http://naver.com
 
 # Customize
 customize:
