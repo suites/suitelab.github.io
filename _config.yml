@@ -4,9 +4,9 @@
 
 # Site
 title: suite.lab 기술 블로그
-subtitle: 이름만 거창한 윤옴므의 기술 블로그.
-description: 이름만 거창한 윤옴므의 기술 블로그. 개발자로 성장하며 익힌 기술과 경험, 지식을 공유합니다.
-keywords: Algorithm, Deep Learning, blog, 기술 면접, 코딩 테스트, 개발, 웹 개발
+subtitle: 윤옴므의 기술 블로그.
+description: 윤옴므의 기술 블로그. 개발자로 성장하며 익힌 기술과 경험, 지식을 공유합니다.
+keywords: Algorithm, Node.js, Development, suite, suitelab 스위트랩, 스위트, Blog, 기술 면접, 코딩 테스트, 개발, 웹 개발
 author: Woosik Yoon
 language: ko
 timezone: Asia/Seoul
