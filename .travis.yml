@@ -1,26 +1,26 @@
 language: node_js
 node_js:
-- stable
+  - stable
 # Hexo source 코드는 source branch에서 작업되고 있어야합니다.
 branches:
   only:
-  - source
+    - source
 
 before_install:
-- npm install -g hexo
+  - npm install -g hexo
 
 install:
-- npm install
+  - npm install
 
 before_script:
-- git config --global user.name "suitelab"
-- git config --global user.email "yoonwoosik12@naver.com"
-- sed -i "s/__GITHUB_TOKEN__/${__GITHUB_TOKEN__}/" _config.yml
+  - git config --global user.name "suitelab"
+  - git config --global user.email "woosiks.io@gmail.com"
+  - sed -i "s/__GITHUB_TOKEN__/${__GITHUB_TOKEN__}/" _config.yml
 
 script:
-- hexo clean
-- hexo g
-- hexo d
+  - hexo clean
+  - hexo g
+  - hexo d
 # - git submodule init
 # - git submodule update
 # - npm run b # 저는 자체 테마를 gitsubmodule로 등록되어 있기에 테마 파일을 빌드 해주었습니다.
