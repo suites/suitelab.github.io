@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+    
+
+    
+    <title>vs code에서 File is a CommonJS module; 메시지 발생할 때. | suite.lab 기술 블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Node.js,editor,vs code" />
+    
+    
+    <meta name="description" content="오늘은 미세먼지급 팁을 가져왔다. vs code로 node.js 개발을 하고있는데[js] File is a CommonJS module; it may be converted to an ES6 module. 라는 메시지가 나를 꽤나 성가시게 하였다. const http = require(&amp;#39;http&amp;#39;); require등을 사용할 때 발생하고 덕분">
+<meta name="keywords" content="Node.js,editor,vs code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vs code에서 File is a CommonJS module; 메시지 발생할 때.">
+<meta property="og:url" content="http://suitee.me/2018/12/04/file-is-a-commonjs-module/index.html">
+<meta property="og:site_name" content="suite.lab 기술 블로그">
+<meta property="og:description" content="오늘은 미세먼지급 팁을 가져왔다. vs code로 node.js 개발을 하고있는데[js] File is a CommonJS module; it may be converted to an ES6 module. 라는 메시지가 나를 꽤나 성가시게 하였다. const http = require(&amp;#39;http&amp;#39;); require등을 사용할 때 발생하고 덕분">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="http://suitee.me/css/images/og-image.png">
+<meta property="og:updated_time" content="2019-02-14T02:51:04.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vs code에서 File is a CommonJS module; 메시지 발생할 때.">
+<meta name="twitter:description" content="오늘은 미세먼지급 팁을 가져왔다. vs code로 node.js 개발을 하고있는데[js] File is a CommonJS module; it may be converted to an ES6 module. 라는 메시지가 나를 꽤나 성가시게 하였다. const http = require(&amp;#39;http&amp;#39;); require등을 사용할 때 발생하고 덕분">
+<meta name="twitter:image" content="http://suitee.me/css/images/og-image.png">
+    
+    
+    <link rel="canonical" href="http://suitee.me/2018/12/04/file-is-a-commonjs-module/"/>
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon/favicon.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-91992546-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+    <!-- Google AdSence -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1955189341680369",
+        enable_page_level_ads: true
+      });
+    </script>
+    <meta name="google-site-verification" content="88lff6Lu9mvm83qKi5gCz6QvnlyJzZnPjPQo7E7PdOw" />
+    <meta name="naver-site-verification" content="0d943f89faeb80f3af0c50cf57e4d269c64e695b"/><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">윤옴므의 기술 블로그.</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/Top-Coder/">Top Coder</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Blog/">Blog</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/">Deep Learning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/Basic/">Basic</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/Kaggle/">Kaggle</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/NLP/">NLP</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/API/">API</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Node-js/">Node.js</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="http://resume.suitee.me/">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Web/">Web</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Web/Node-js/">Node.js</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-file-is-a-commonjs-module" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        vs code에서 File is a CommonJS module; 메시지 발생할 때.
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/12/04/file-is-a-commonjs-module/" class="article-date">
+            <time datetime="2018-12-04T01:00:00.000Z" itemprop="datePublished">2018-12-04</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Node-js/">Node.js</a>, <a class="tag-link" href="/tags/editor/">editor</a>, <a class="tag-link" href="/tags/vs-code/">vs code</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>오늘은 미세먼지급 팁을 가져왔다. vs code로 node.js 개발을 하고있는데<br><code>[js] File is a CommonJS module; it may be converted to an ES6 module.</code> 라는 메시지가 나를 꽤나 성가시게 하였다.</p>
+<p><code>const http = require(&#39;http&#39;);</code> require등을 사용할 때 발생하고 덕분에 require가 자동완성도 되지않는다.</p>
+<div align="middle">
+    <img src="/images/20181204/message.png">
+</div>
+
+<h2 id="해결방법"><a href="#해결방법" class="headerlink" title="해결방법"></a>해결방법</h2><blockquote>
+<p>File &gt; Preferences &gt; Settings</p>
+</blockquote>
+<p>또는</p>
+<blockquote>
+<p>Ctrl + ,</p>
+</blockquote>
+<p>입력 후 아래 사진과 같이 <code>suggestion Actions</code>을 검색하고<br><code>Javascript &gt; Suggestion Actions: Enabled</code> 의 체크를 해제한다.</p>
+<div align="middle">
+    <img src="/images/20181204/message1.png">
+</div>
+
+<p>이후 더이상의 경고는 발생하지 않았다!</p>
+<div align="middle">
+    <img src="/images/20181204/message2.png">
+</div>
+
+<p>필자의 경우에는 성가심 해결이 먼저여서 우선 조치를 취했지만, 이 메세지에 관해서 자세히 알고 싶은 사람은 다음 vscode의 Issue를 들여다 보면 도움이 될 것 같다.  </p>
+<p><a href="https://github.com/Microsoft/vscode/issues/47299" target="_blank" rel="noopener">[js] File is a CommonJS module; it may be converted to an ES6 module. #47299</a></p>
+<h1 id="🛴"><a href="#🛴" class="headerlink" title="🛴"></a>🛴</h1>
+        </div>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1955189341680369"
+     data-ad-slot="8423559701"
+     data-ad-format="auto"
+     data-full-width-responsive="false"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://suitee.me/2018/12/04/file-is-a-commonjs-module/" data-id="cjs412rsf0007nwku2rvy8198" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/suitelab/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/yoon.homme/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/suitelab/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-linkedin"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/12/17/simple-resume/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            simple resume[이력서 생성기] 개발기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/11/23/lostark-wait-notifier-2/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">로스트아크 대기열 카카오톡 알림봇 개발기 - 2</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://github.com">Github</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://hunkim.github.io/ml">김성훈교수 딥러닝강의</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.acmicpc.net">백준온라인저지</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.hackerrank.com">Hackerrank</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://app.codility.com/programmers">Codility</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">12월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">11월 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">10월 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">8월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">3월 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">10월 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">9월 2017</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/API/" style="font-size: 12.5px;">API</a> <a href="/tags/Algorithm/" style="font-size: 17.5px;">Algorithm</a> <a href="/tags/Bottom-Up/" style="font-size: 10px;">Bottom Up</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Crawler/" style="font-size: 12.5px;">Crawler</a> <a href="/tags/Deep-Learning/" style="font-size: 15px;">Deep Learning</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic Programming</a> <a href="/tags/EJS/" style="font-size: 10px;">EJS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 12.5px;">HTTPS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Kakao-plus-friend/" style="font-size: 12.5px;">Kakao plus friend</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Post/" style="font-size: 10px;">Post</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SSL/" style="font-size: 12.5px;">SSL</a> <a href="/tags/Top-Down/" style="font-size: 10px;">Top Down</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/editor/" style="font-size: 10px;">editor</a> <a href="/tags/json/" style="font-size: 12.5px;">json</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/vs-code/" style="font-size: 10px;">vs code</a> <a href="/tags/동적계획법/" style="font-size: 10px;">동적계획법</a> <a href="/tags/백준/" style="font-size: 10px;">백준</a> <a href="/tags/시뮬레이션/" style="font-size: 10px;">시뮬레이션</a> <a href="/tags/알고리즘/" style="font-size: 10px;">알고리즘</a> <a href="/tags/전체-탐색/" style="font-size: 15px;">전체 탐색</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1955189341680369"
+     data-ad-slot="8423559701"
+     data-ad-format="auto"
+     data-full-width-responsive="false"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Woosik Yoon |
+                  <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="20px" src="https://ghbtns.com/github-btn.html?user=suitelab&amp;repo=suitelab.github.io&amp;type=star&amp;count=true">
+                  </iframe>
+                </p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'suitelab';
+    
+    
+    var disqus_url = 'http://suitee.me/2018/12/04/file-is-a-commonjs-module/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+    
+
+    
+    <title>로스트아크 대기열 카카오톡 알림봇 개발기 - 2 | suite.lab 기술 블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Python,Crawler,API,json,Kakao plus friend" />
+    
+    
+    <meta name="description" content="서비스 링크 : https://pf.kakao.com/_dcPGjGithub 링크 : https://github.com/suitelab/lostark-wait-notifier          기존 서비스가 loaq측의 요청으로 데이터를 크롤링할 수 없게 되었다.서비스가 주거버려따..서비스의 친구수는 점점 늘어가는데 제대로 운영하지 못해서 죄송스러울 따름이">
+<meta name="keywords" content="Python,Crawler,API,json,Kakao plus friend">
+<meta property="og:type" content="article">
+<meta property="og:title" content="로스트아크 대기열 카카오톡 알림봇 개발기 - 2">
+<meta property="og:url" content="http://suitee.me/2018/11/23/lostark-wait-notifier-2/index.html">
+<meta property="og:site_name" content="suite.lab 기술 블로그">
+<meta property="og:description" content="서비스 링크 : https://pf.kakao.com/_dcPGjGithub 링크 : https://github.com/suitelab/lostark-wait-notifier          기존 서비스가 loaq측의 요청으로 데이터를 크롤링할 수 없게 되었다.서비스가 주거버려따..서비스의 친구수는 점점 늘어가는데 제대로 운영하지 못해서 죄송스러울 따름이">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="http://suitee.me/css/images/og-image.png">
+<meta property="og:updated_time" content="2019-02-14T02:51:04.669Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="로스트아크 대기열 카카오톡 알림봇 개발기 - 2">
+<meta name="twitter:description" content="서비스 링크 : https://pf.kakao.com/_dcPGjGithub 링크 : https://github.com/suitelab/lostark-wait-notifier          기존 서비스가 loaq측의 요청으로 데이터를 크롤링할 수 없게 되었다.서비스가 주거버려따..서비스의 친구수는 점점 늘어가는데 제대로 운영하지 못해서 죄송스러울 따름이">
+<meta name="twitter:image" content="http://suitee.me/css/images/og-image.png">
+    
+    
+    <link rel="canonical" href="http://suitee.me/2018/11/23/lostark-wait-notifier-2/"/>
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon/favicon.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-91992546-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+    <!-- Google AdSence -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1955189341680369",
+        enable_page_level_ads: true
+      });
+    </script>
+    <meta name="google-site-verification" content="88lff6Lu9mvm83qKi5gCz6QvnlyJzZnPjPQo7E7PdOw" />
+    <meta name="naver-site-verification" content="0d943f89faeb80f3af0c50cf57e4d269c64e695b"/><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">윤옴므의 기술 블로그.</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/Top-Coder/">Top Coder</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Blog/">Blog</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/">Deep Learning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/Basic/">Basic</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/Kaggle/">Kaggle</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/NLP/">NLP</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/API/">API</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Node-js/">Node.js</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="http://resume.suitee.me/">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Web/">Web</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Web/API/">API</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-lostark-wait-notifier-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        로스트아크 대기열 카카오톡 알림봇 개발기 - 2
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/11/23/lostark-wait-notifier-2/" class="article-date">
+            <time datetime="2018-11-23T01:00:00.000Z" itemprop="datePublished">2018-11-23</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/API/">API</a>, <a class="tag-link" href="/tags/Crawler/">Crawler</a>, <a class="tag-link" href="/tags/Kakao-plus-friend/">Kakao plus friend</a>, <a class="tag-link" href="/tags/Python/">Python</a>, <a class="tag-link" href="/tags/json/">json</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <blockquote>
+<p>서비스 링크 : <a href="https://pf.kakao.com/_dcPGj" target="_blank" rel="noopener">https://pf.kakao.com/_dcPGj</a><br>Github 링크 : <a href="https://github.com/suitelab/lostark-wait-notifier" target="_blank" rel="noopener">https://github.com/suitelab/lostark-wait-notifier</a></p>
+</blockquote>
+<div align="middle">
+    <img src="/images/20181123/loa1.png" width="300px">
+</div>
+
+<p>기존 서비스가 loaq측의 요청으로 데이터를 크롤링할 수 없게 되었다.<br><del>서비스가 주거버려따..</del><br>서비스의 친구수는 점점 늘어가는데 제대로 운영하지 못해서 죄송스러울 따름이었고,<br>이렇게 수요가 많은 서비스를 꼭 다시 운영해봐야겠다는 생각을 갖고있었다.</p>
+<p>그래서 서비스를 중단하고 있는 와중에 <a href="https://rubystarashe.github.io/lostark/" target="_blank" rel="noopener">https://rubystarashe.github.io/lostark/</a>(이하 대기열서비스)를 운영하고 계신<br>루비스타님이 데이터 수집을 혼쾌히 허락해주셔서 다시 운영할 수 있게 되었다.</p>
+<p>개발 프로세스는 다음과 같이 구상하였다.</p>
+<ol>
+<li>대기열 서비스의 데이터를 크롤링한다.</li>
+<li>크롤링한 데이터를 가공하여 DB에 저장한다.</li>
+<li>스케줄러를 사용한다.</li>
+<li>사용자의 요청시 마다 DB에서 데이터를 kakao 플러스친구 api를 통해 서비스 한다.</li>
+</ol>
+<h2 id="1-대기열서비스의-데이터를-크롤링한다"><a href="#1-대기열서비스의-데이터를-크롤링한다" class="headerlink" title="1. 대기열서비스의 데이터를 크롤링한다."></a>1. 대기열서비스의 데이터를 크롤링한다.</h2><p><del>크롤러의 경우 selenium를 자주 써봤어서 고려해봤지만 브라우저를 사용하는 selenium 특성상 request당 매번 빠르게 크롤링 해야하는 이번 서비스에는 어울리지 않겠다는 생각이 들었다.</del><br>라고 1편에 적었지만 대기열서비스가 렌더링을 통해 생성되기 때문에 일반적인 방법으로는 DOM구조를 수집할 수 없었다.<br>그래서 selenium을 통해 브라우징을 하고 긁어온 DOM을 BeautifulSoup를 사용하여 처리했다.  </p>
+<p>바로 대기열서비스의 구조를 파악해보자.</p>
+<h4 id="데이터가-생성되기-전의-모습"><a href="#데이터가-생성되기-전의-모습" class="headerlink" title="데이터가 생성되기 전의 모습"></a>데이터가 생성되기 전의 모습</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">data-n-head</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"__nuxt"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">            <span class="selector-id">#nuxt-loading</span> &#123;</span></span><br><span class="line"><span class="undefined">                visibility: hidden;</span></span><br><span class="line"><span class="undefined">                opacity: 0;</span></span><br><span class="line"><span class="undefined">                position: absolute;</span></span><br><span class="line"><span class="undefined">                left: 0;</span></span><br><span class="line"><span class="undefined">...</span></span><br></pre></td></tr></table></figure>
+<h4 id="데이터가-생성된-후의-모습"><a href="#데이터가-생성된-후의-모습" class="headerlink" title="데이터가 생성된 후의 모습"></a>데이터가 생성된 후의 모습</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"__nuxt"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"data name"</span>&gt;</span>안타레스<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"data queue"</span> <span class="attr">style</span>=<span class="string">"opacity: 1; color: yellow;"</span>&gt;</span>9590<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"data name"</span>&gt;</span>아크투르스<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"data queue"</span> <span class="attr">style</span>=<span class="string">"opacity: 1; color: yellow;"</span>&gt;</span>7839<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>크롤링하기 좋게 구조가 짜여져있다.<br><code>soup.select()</code> 메서드로 span tag의 <code>data name</code> 태그를 불러오면 서버이름 리스트,<br><code>data queue</code> 태그를 불러오면 서버의 대기열 리스트를 가져올 수 있을 것이다.<br>그러면 바로 구현해보자.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(server_count):</span><br><span class="line">    server = soup.select(<span class="string">'span.data.name'</span>)[i].text</span><br><span class="line">    queue = soup.select(<span class="string">'span.data.queue'</span>)[i].text</span><br><span class="line"></span><br><span class="line">    items.append(&#123;<span class="string">"server"</span>: server, <span class="string">"queue"</span>: queue&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="2-크롤링한-데이터를-가공하여-DB에-저장한다"><a href="#2-크롤링한-데이터를-가공하여-DB에-저장한다" class="headerlink" title="2. 크롤링한 데이터를 가공하여 DB에 저장한다."></a>2. 크롤링한 데이터를 가공하여 DB에 저장한다.</h2><p>원래 DB까지 쓰고싶지 않았지만 selenium을 사용하게 되니 한번 크롤링하는데 평균 4.5초라는 시간이 걸렸다. 카톡봇에게 대기열 요청하고 약 5초간 기다리게 된다면 매우 끔찍할 것이다.<br>그래서 구상한 생각은 selenium 브라우저를 띄워놓고 주기적으로 크롤링을 하여 DB로 저장하는 방법이었다.</p>
+<p>DB는 많이 쓰이는 MySql을 사용하였고 테이블 구조는 다음과 같다.</p>
+<div align="middle">
+    <img src="/images/20181123/table.png" width="300px">
+</div>
+
+<p>server table에는 최초에 서버리스트를 저장해두고 크롤링 할때마다 queue table에 insert하게 하였다.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_queue_query</span><span class="params">(self, queues)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i, queue <span class="keyword">in</span> enumerate(queues):</span><br><span class="line">        sql_query = <span class="string">f"INSERT INTO queue(date_time, server_id, queue) VALUES (now(), <span class="subst">&#123;i + <span class="number">1</span>&#125;</span>, <span class="subst">&#123;queue[<span class="string">'queue'</span>]&#125;</span>);"</span></span><br><span class="line">        self.cursor.execute(sql_query)</span><br><span class="line"></span><br><span class="line">    self.conn.commit()</span><br><span class="line">    print(<span class="string">'&#123;0&#125;개의 정보 업데이트 완료: &#123;1&#125;'</span>.format(len(queues),  str(datetime.now())))</span><br></pre></td></tr></table></figure>
+<p>그리고 table에 시간당 약 10,000건의 데이터가 들어올 것으로 예상되어 퍼포먼스를 위해 데이터를 일정 주기마다 일부를 삭제하게 하였다.<br>만약 통계등의 데이터를 제공하게 된다면 이부분은 다시 고려해봐야 할 것 같다.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete_data</span><span class="params">(self)</span>:</span></span><br><span class="line">    sql = <span class="string">"""</span></span><br><span class="line"><span class="string">    DELETE FROM queue</span></span><br><span class="line"><span class="string">    ORDER BY date_time ASC LIMIT 9000;</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    self.cursor.execute(sql)</span><br><span class="line"></span><br><span class="line">    self.conn.commit()</span><br><span class="line">    print(<span class="string">'9000개의 정보 삭제 완료: &#123;0&#125;'</span>.format(str(datetime.now())))</span><br></pre></td></tr></table></figure>
+<p>Crawler class의 <strong>init</strong>부분에서 크롬드라이버가 실행되기 때문에 db에서 데이터를 제공할때 (<del>느린</del>)크롬드라이버를 실행할 필요는 없었다.</p>
+<p>DbTools class 객체를 생성할 때 <code>select_only</code> 파라미터를 둠으로써 조회만 사용할 객체의 경우 빠른 속도로 실행할 수 있게 하였다.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DbTools</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, select_only = False)</span>:</span></span><br><span class="line">        self.conn = pymysql.connect(host=config.DATABASE_CONFIG[<span class="string">"host"</span>],</span><br><span class="line">                                    user=config.DATABASE_CONFIG[<span class="string">"user"</span>],</span><br><span class="line">                                    db=config.DATABASE_CONFIG[<span class="string">"db"</span>],</span><br><span class="line">                                    password=config.DATABASE_CONFIG[<span class="string">"password"</span>],</span><br><span class="line">                                    charset=config.DATABASE_CONFIG[<span class="string">"charset"</span>])</span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line">        self.crawler = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> select_only:</span><br><span class="line">            self.crawler = Crawler()</span><br></pre></td></tr></table></figure>
+<h2 id="3-스케줄러를-사용한다"><a href="#3-스케줄러를-사용한다" class="headerlink" title="3. 스케줄러를 사용한다."></a>3. 스케줄러를 사용한다.</h2><p>스케줄러는 처음 써봤지만 사용법이 간단해보이는 schedule 모듈을 사용하였다.<br>다음과  같은 짧은 코드로 스케줄러가 완성되었다.</p>
+<p>서버와 별개로 백그라운드로 돌면서 2초마다 크롤링하고 4000초(약 1시간)마다 데이터를 9000건을 삭제하는 스케줄러가 된 것이다.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># schedule.py</span></span><br><span class="line">db = DbTools(select_only=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_schedule</span><span class="params">()</span>:</span></span><br><span class="line">    db.save_data()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete_schedule</span><span class="params">()</span>:</span></span><br><span class="line">    db.delete_data()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    print(<span class="string">"scheduler is running! &#123;&#125;"</span>.format(datetime.now()))</span><br><span class="line"></span><br><span class="line">    schedule.every(<span class="number">2</span>).seconds.do(insert_schedule)</span><br><span class="line">    schedule.every(<span class="number">4000</span>).seconds.do(delete_schedule)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        schedule.run_pending()</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="4-사용자의-요청시-마다-DB에서-데이터를-kakao-플러스친구-api를-통해-서비스-한다"><a href="#4-사용자의-요청시-마다-DB에서-데이터를-kakao-플러스친구-api를-통해-서비스-한다" class="headerlink" title="4. 사용자의 요청시 마다 DB에서 데이터를 kakao 플러스친구 api를 통해 서비스 한다."></a>4. 사용자의 요청시 마다 DB에서 데이터를 kakao 플러스친구 api를 통해 서비스 한다.</h2><p>kakao api 사용부분은 기존과 크게 변한게 없지만 <code>message_button</code> 파라미터를 추가해보았다.<br>(<del>물론 블로그 홍보라는 사리사욕을 채우기 위해서</del>)</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_send[<span class="string">"message"</span>].update(&#123;<span class="string">'message_button'</span>: &#123;<span class="string">'label'</span>: <span class="string">'개발자 윤옴므 블로그'</span>, <span class="string">'url'</span>: <span class="string">'http://suitee.me'</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<div align="middle">
+    <img src="/images/20181123/message.png" width="300px">
+</div>
+
+<p>개발자 윤옴므 블로그 라는 버튼이 아주 잘 생성되었다.</p>
+<h2 id="5-기타"><a href="#5-기타" class="headerlink" title="5. 기타"></a>5. 기타</h2><ul>
+<li><p>server는 AWS EC2의 t3.micro 인스턴스로 Ubuntu를 사용하고 있다.  </p>
+</li>
+<li><p>GUI를 설치하지 않은 관계로 putty를 사용하고있는데 당연히 putty를 종료하면 putty로 실행하고 있던 프로그램은 종료가 된다.<br>그래서 백그라운드를 돌리는 프로그램으로 원래 node.js용으로 npm에서 제공되는 forever를 사용하였다.  </p>
+</li>
+<li><p>설치 후 해당 디렉토리에서 다음과 같이 명령어를 작성하면 python 서비스지만 아주 정상적으로 작동한다.</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> forever start -c python3 kakao.py</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> forever start -c python3 scheduler.py</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>로스트아크 점검공지사항을 보여주는 기능을 고려중이다. 빠른시일내에 서비스가 제공될 수도 있을것 같다.</p>
+</li>
+<li><p>섬시간 알림 기능도 고려중이다.</p>
+</li>
+<li><p>이번 주말부터 로스트아크가 서버를 대대적으로 증설한다고 한다. 울어야 할지 웃어야 할지… 내 서비스의 존폐 여부가 달려 있을듯 싶다. 물론 대기열이 없으면 더욱 행복할 것 같다 :)</p>
+</li>
+</ul>
+<h1 id="🛴"><a href="#🛴" class="headerlink" title="🛴"></a>🛴</h1>
+        </div>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1955189341680369"
+     data-ad-slot="8423559701"
+     data-ad-format="auto"
+     data-full-width-responsive="false"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://suitee.me/2018/11/23/lostark-wait-notifier-2/" data-id="cjs412run0050nwku4bjag3sh" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/suitelab/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/yoon.homme/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/suitelab/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-linkedin"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/12/04/file-is-a-commonjs-module/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            vs code에서 File is a CommonJS module; 메시지 발생할 때.
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/11/18/lostark-wait-notifier/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">로스트아크 대기열 카카오톡 알림봇 개발기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://github.com">Github</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://hunkim.github.io/ml">김성훈교수 딥러닝강의</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.acmicpc.net">백준온라인저지</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.hackerrank.com">Hackerrank</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://app.codility.com/programmers">Codility</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">12월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">11월 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">10월 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">8월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">3월 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">10월 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">9월 2017</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/API/" style="font-size: 12.5px;">API</a> <a href="/tags/Algorithm/" style="font-size: 17.5px;">Algorithm</a> <a href="/tags/Bottom-Up/" style="font-size: 10px;">Bottom Up</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Crawler/" style="font-size: 12.5px;">Crawler</a> <a href="/tags/Deep-Learning/" style="font-size: 15px;">Deep Learning</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic Programming</a> <a href="/tags/EJS/" style="font-size: 10px;">EJS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 12.5px;">HTTPS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Kakao-plus-friend/" style="font-size: 12.5px;">Kakao plus friend</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Post/" style="font-size: 10px;">Post</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SSL/" style="font-size: 12.5px;">SSL</a> <a href="/tags/Top-Down/" style="font-size: 10px;">Top Down</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/editor/" style="font-size: 10px;">editor</a> <a href="/tags/json/" style="font-size: 12.5px;">json</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/vs-code/" style="font-size: 10px;">vs code</a> <a href="/tags/동적계획법/" style="font-size: 10px;">동적계획법</a> <a href="/tags/백준/" style="font-size: 10px;">백준</a> <a href="/tags/시뮬레이션/" style="font-size: 10px;">시뮬레이션</a> <a href="/tags/알고리즘/" style="font-size: 10px;">알고리즘</a> <a href="/tags/전체-탐색/" style="font-size: 15px;">전체 탐색</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1955189341680369"
+     data-ad-slot="8423559701"
+     data-ad-format="auto"
+     data-full-width-responsive="false"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Woosik Yoon |
+                  <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="20px" src="https://ghbtns.com/github-btn.html?user=suitelab&amp;repo=suitelab.github.io&amp;type=star&amp;count=true">
+                  </iframe>
+                </p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'suitelab';
+    
+    
+    var disqus_url = 'http://suitee.me/2018/11/23/lostark-wait-notifier-2/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

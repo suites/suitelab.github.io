@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+    
+
+    
+    <title>문장의 유사도 분석하기(레벤슈타인 거리, N-gram) | suite.lab 기술 블로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Python,Deep Learning,NLP" />
+    
+    
+    <meta name="description" content="문장의 유사도 분석단어 또는 문장의 유사도를 분석하는 방법 중에는 레벤슈타인 거리, N-gram 등이 있다.오늘은 이 방법들에 대해서 알아볼 것이다. 레벤슈타인 거리(Lvenshtein distance)레벤슈타인 거리는 두 단어 또는 문장의 차이를 통해 거리를 수치로 나타내는 것이다.철자 오류 수정, 비슷한 어구 검색 등에 사용되고, 의학 분야에서는 DNA">
+<meta name="keywords" content="Python,Deep Learning,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="문장의 유사도 분석하기(레벤슈타인 거리, N-gram)">
+<meta property="og:url" content="http://suitee.me/2018/07/29/n-gram/index.html">
+<meta property="og:site_name" content="suite.lab 기술 블로그">
+<meta property="og:description" content="문장의 유사도 분석단어 또는 문장의 유사도를 분석하는 방법 중에는 레벤슈타인 거리, N-gram 등이 있다.오늘은 이 방법들에 대해서 알아볼 것이다. 레벤슈타인 거리(Lvenshtein distance)레벤슈타인 거리는 두 단어 또는 문장의 차이를 통해 거리를 수치로 나타내는 것이다.철자 오류 수정, 비슷한 어구 검색 등에 사용되고, 의학 분야에서는 DNA">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="http://suitee.me/css/images/og-image.png">
+<meta property="og:updated_time" content="2019-02-14T02:51:04.669Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="문장의 유사도 분석하기(레벤슈타인 거리, N-gram)">
+<meta name="twitter:description" content="문장의 유사도 분석단어 또는 문장의 유사도를 분석하는 방법 중에는 레벤슈타인 거리, N-gram 등이 있다.오늘은 이 방법들에 대해서 알아볼 것이다. 레벤슈타인 거리(Lvenshtein distance)레벤슈타인 거리는 두 단어 또는 문장의 차이를 통해 거리를 수치로 나타내는 것이다.철자 오류 수정, 비슷한 어구 검색 등에 사용되고, 의학 분야에서는 DNA">
+<meta name="twitter:image" content="http://suitee.me/css/images/og-image.png">
+    
+    
+    <link rel="canonical" href="http://suitee.me/2018/07/29/n-gram/"/>
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon/favicon.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-91992546-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+
+
+    <!-- Google AdSence -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1955189341680369",
+        enable_page_level_ads: true
+      });
+    </script>
+    <meta name="google-site-verification" content="88lff6Lu9mvm83qKi5gCz6QvnlyJzZnPjPQo7E7PdOw" />
+    <meta name="naver-site-verification" content="0d943f89faeb80f3af0c50cf57e4d269c64e695b"/><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">윤옴므의 기술 블로그.</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/Top-Coder/">Top Coder</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Blog/">Blog</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/">Deep Learning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/Basic/">Basic</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/Kaggle/">Kaggle</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Deep-Learning/NLP/">NLP</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/API/">API</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Node-js/">Node.js</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="http://resume.suitee.me/">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Deep-Learning/">Deep Learning</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Deep-Learning/NLP/">NLP</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-n-gram" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        문장의 유사도 분석하기(레벤슈타인 거리, N-gram)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/07/29/n-gram/" class="article-date">
+            <time datetime="2018-07-29T21:35:00.000Z" itemprop="datePublished">2018-07-30</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tag-link" href="/tags/NLP/">NLP</a>, <a class="tag-link" href="/tags/Python/">Python</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="문장의-유사도-분석"><a href="#문장의-유사도-분석" class="headerlink" title="문장의 유사도 분석"></a>문장의 유사도 분석</h2><p>단어 또는 문장의 유사도를 분석하는 방법 중에는 레벤슈타인 거리, N-gram 등이 있다.<br>오늘은 이 방법들에 대해서 알아볼 것이다.</p>
+<h2 id="레벤슈타인-거리-Lvenshtein-distance"><a href="#레벤슈타인-거리-Lvenshtein-distance" class="headerlink" title="레벤슈타인 거리(Lvenshtein distance)"></a>레벤슈타인 거리(Lvenshtein distance)</h2><p>레벤슈타인 거리는 두 단어 또는 문장의 차이를 통해 거리를 수치로 나타내는 것이다.<br>철자 오류 수정, 비슷한 어구 검색 등에 사용되고, 의학 분야에서는 DNA 배열의 유사성을 판단할 때도 사용하고 있다.</p>
+<p>예를 들어<br>‘가나다라’를 ‘가마바라’로 수정할 때 몇 번의 수정이 필요한 지를 거리로 나타낼 수 있다.  </p>
+<p>0 가나다라<br>1 가’마’다라<br>2 가마’바’라  </p>
+<p>‘가나다라’-&gt; ‘가마바라’는 거리가 2임을 알 수 있다.</p>
+<p>코드로 알아보자.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_distance</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a == b:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    a_len = len(a)</span><br><span class="line">    b_len = len(b)</span><br><span class="line">    <span class="keyword">if</span> a == <span class="string">""</span>:</span><br><span class="line">        <span class="keyword">return</span> b_len</span><br><span class="line">    <span class="keyword">if</span> b == <span class="string">""</span>:</span><br><span class="line">        <span class="keyword">return</span> a_len</span><br><span class="line">    <span class="comment"># 2차원 표 (a_len+1, b_len+2) 준비하기</span></span><br><span class="line">    matrix = [[] <span class="keyword">for</span> i <span class="keyword">in</span> range(a_len+<span class="number">1</span>)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(a_len+<span class="number">1</span>):</span><br><span class="line">        matrix[i] = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(b_len+<span class="number">1</span>)]</span><br><span class="line">    <span class="comment"># 0일 때 초기값을 설정</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(a_len+<span class="number">1</span>):</span><br><span class="line">        matrix[i][<span class="number">0</span>] = i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(b_len+<span class="number">1</span>):</span><br><span class="line">        matrix[<span class="number">0</span>][j] = j</span><br><span class="line">    <span class="comment"># 표 채우기</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, a_len+<span class="number">1</span>):</span><br><span class="line">        ac = a[i<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, b_len+<span class="number">1</span>):</span><br><span class="line">            bc = b[j<span class="number">-1</span>]</span><br><span class="line">            cost = <span class="number">0</span> <span class="keyword">if</span> (ac == bc) <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">            matrix[i][j] = min([</span><br><span class="line">                matrix[i<span class="number">-1</span>][j] + <span class="number">1</span>,     <span class="comment"># 문자 삽입</span></span><br><span class="line">                matrix[i][j<span class="number">-1</span>] + <span class="number">1</span>,     <span class="comment"># 문자 제거</span></span><br><span class="line">                matrix[i<span class="number">-1</span>][j<span class="number">-1</span>] + cost <span class="comment"># 문자 변경</span></span><br><span class="line">            ])</span><br><span class="line">    <span class="keyword">return</span> matrix[a_len][b_len]</span><br><span class="line"></span><br><span class="line">print(calc_distance(<span class="string">'가나다라'</span>, <span class="string">'가마바라'</span>))</span><br><span class="line"><span class="comment"># result : 2</span></span><br><span class="line"></span><br><span class="line">samples = [<span class="string">'신촌역'</span>, <span class="string">'신쵼'</span>, <span class="string">'신천군'</span>, <span class="string">'신천역'</span>, <span class="string">'신발'</span>, <span class="string">'마곡역'</span>]</span><br><span class="line">base = samples[<span class="number">0</span>]</span><br><span class="line">r = sorted(samples, key = <span class="keyword">lambda</span> n: calc_distance(base, n))</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> r:</span><br><span class="line">    print(calc_distance(base, n), n)</span><br><span class="line"></span><br><span class="line">/* result :</span><br><span class="line"><span class="number">0</span> 신촌역</span><br><span class="line"><span class="number">1</span> 신천역</span><br><span class="line"><span class="number">2</span> 신쵼</span><br><span class="line"><span class="number">2</span> 신천군</span><br><span class="line"><span class="number">2</span> 신발</span><br><span class="line"><span class="number">2</span> 마곡역</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<h2 id="N-gram"><a href="#N-gram" class="headerlink" title="N-gram"></a>N-gram</h2><p>N-gram은 이웃한 N개의 문자를 의미한다.<br>서로 다른 2개의 문장을 N-gram으로 비교해보면 출현하는 단어의 종류와 빈도수, 유사도를 확인할 수 있다.<br>N-gram은 논문 도용, 소스코드간 유사도 등에도 사용할 수 있다.  </p>
+<p>예를들어  </p>
+<ul>
+<li>오늘 강남에서 맛있는 스파게티를 먹었다.</li>
+<li>강남에서 먹었던 오늘의 스파게티는 맛있었다.</li>
+</ul>
+<p>위 문장들을 2글자씩 끊으면<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">'오늘</span>', <span class="symbol">'늘</span> ', ' 강', <span class="symbol">'강남</span>', <span class="symbol">'남에</span>', <span class="symbol">'에서</span>', <span class="symbol">'서</span> ', ' 맛', <span class="symbol">'맛있</span>', <span class="symbol">'있는</span>', <span class="symbol">'는</span> ', ' 스', <span class="symbol">'스파</span>', <span class="symbol">'파게</span>', <span class="symbol">'게티</span>', <span class="symbol">'티를</span>', <span class="symbol">'를</span> ', ' 먹', <span class="symbol">'먹었</span>', <span class="symbol">'었다</span>', <span class="symbol">'다.</span>']</span><br><span class="line"></span><br><span class="line">[<span class="symbol">'강남</span>', <span class="symbol">'남에</span>', <span class="symbol">'에서</span>', <span class="symbol">'서</span> ', ' 먹', <span class="symbol">'먹었</span>', <span class="symbol">'었던</span>', <span class="symbol">'던</span> ', ' 오', <span class="symbol">'오늘</span>', <span class="symbol">'늘의</span>', <span class="symbol">'의</span> ', ' 스', <span class="symbol">'스파</span>', <span class="symbol">'파게</span>', <span class="symbol">'게티</span>', <span class="symbol">'티는</span>', <span class="symbol">'는</span> ', ' 맛', <span class="symbol">'맛있</span>', <span class="symbol">'있었</span>', <span class="symbol">'었다</span>', <span class="symbol">'다.</span>']</span><br></pre></td></tr></table></figure></p>
+<p>이렇게 끊어지게 되는데<br>이 구분된 문장들을 한 항목씩 비교해서 동일한 항목이 있을 때 count를 + 1 하여 총 count / 끊은 문장 배열의 항목 수<br>를 하여 유사도를 구하게 된다.  </p>
+<p>코드로 알아보자.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ngram</span><span class="params">(s, num)</span>:</span></span><br><span class="line">    res = []</span><br><span class="line">    slen = len(s) - num + <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(slen):</span><br><span class="line">        ss = s[i:i+num]</span><br><span class="line">        res.append(ss)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">diff_ngram</span><span class="params">(sa, sb, num)</span>:</span></span><br><span class="line">    a = ngram(sa, num)</span><br><span class="line">    b = ngram(sb, num)</span><br><span class="line">    r = []</span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> b:</span><br><span class="line">            <span class="keyword">if</span> i == j:</span><br><span class="line">                cnt += <span class="number">1</span></span><br><span class="line">                r.append(i)</span><br><span class="line">    <span class="keyword">return</span> cnt / len(a), r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="string">'오늘 강남에서 맛있는 스파게티를 먹었다.'</span></span><br><span class="line">b = <span class="string">'강남에서 먹었던 오늘의 스파게티는 맛있었다.'</span></span><br><span class="line"></span><br><span class="line">r2, word2 = diff_ngram(a, b, <span class="number">2</span>)</span><br><span class="line">print(<span class="string">'2-gram:'</span>, r2, word2)</span><br><span class="line"><span class="comment"># result : 2-gram: 0.7619047619047619 ['오늘', '강남', '남에', '에서', '서 ', ' 맛', '맛있', '는 ', ' 스', '스파', '파게', '게티', ' 먹', '먹었', '었다', '다.']</span></span><br><span class="line"></span><br><span class="line">r3, word3 = diff_ngram(a, b, <span class="number">3</span>)</span><br><span class="line">print(<span class="string">'3-gram:'</span>, r3, word3)</span><br><span class="line"><span class="comment"># result : 3-gram: 0.45 ['강남에', '남에서', '에서 ', ' 맛있', ' 스파', '스파게', '파게티', ' 먹었', '었다.']</span></span><br></pre></td></tr></table></figure></p>
+<p>2문장씩 끊었을때의 유사도는 0.76, 3문장씩 끊었을때의 유사도는 0.45로 2문장씩 끊었을 때의 유사도가 더 높았다.<br>N개의 문장을 끊을지는 hyper parameter가 될 것 같다. 유사도를 구할 문장에따라 적절한 값을 입력하면 좋은 결과가 있을 것 같다.  </p>
+<p>위에 대한 소스코드는<br><a href="https://github.com/suitelab/actual-deeplearning/blob/master/ch6/lev-distance.py" target="_blank" rel="noopener">https://github.com/suitelab/actual-deeplearning/blob/master/ch6/lev-distance.py</a><br><a href="https://github.com/suitelab/actual-deeplearning/blob/master/ch6/ngram-test.py" target="_blank" rel="noopener">https://github.com/suitelab/actual-deeplearning/blob/master/ch6/ngram-test.py</a><br>에 올려두었다.</p>
+
+        </div>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1955189341680369"
+     data-ad-slot="8423559701"
+     data-ad-format="auto"
+     data-full-width-responsive="false"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://suitee.me/2018/07/29/n-gram/" data-id="cjs412rss000inwkuuv2dwxjb" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/suitelab/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="instagram" href="https://www.instagram.com/yoon.homme/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-instagram"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/suitelab/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-linkedin"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/08/27/selection-sort-with-python/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            선택정렬 알고리즘(selection sort) 구현하기 with Python
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2018/03/18/nlp-basic/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">오래된</strong>
+        <p class="article-nav-title">NLP Basic</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://github.com">Github</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://hunkim.github.io/ml">김성훈교수 딥러닝강의</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.acmicpc.net">백준온라인저지</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.hackerrank.com">Hackerrank</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://app.codility.com/programmers">Codility</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2월 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">12월 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">11월 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">10월 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">8월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">7월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">3월 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">10월 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">9월 2017</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/API/" style="font-size: 12.5px;">API</a> <a href="/tags/Algorithm/" style="font-size: 17.5px;">Algorithm</a> <a href="/tags/Bottom-Up/" style="font-size: 10px;">Bottom Up</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Crawler/" style="font-size: 12.5px;">Crawler</a> <a href="/tags/Deep-Learning/" style="font-size: 15px;">Deep Learning</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic Programming</a> <a href="/tags/EJS/" style="font-size: 10px;">EJS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/GitHub-Pages/" style="font-size: 10px;">GitHub Pages</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/HTTPS/" style="font-size: 12.5px;">HTTPS</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/Kakao-plus-friend/" style="font-size: 12.5px;">Kakao plus friend</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Post/" style="font-size: 10px;">Post</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SSL/" style="font-size: 12.5px;">SSL</a> <a href="/tags/Top-Down/" style="font-size: 10px;">Top Down</a> <a href="/tags/YAML/" style="font-size: 10px;">YAML</a> <a href="/tags/editor/" style="font-size: 10px;">editor</a> <a href="/tags/json/" style="font-size: 12.5px;">json</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/vs-code/" style="font-size: 10px;">vs code</a> <a href="/tags/동적계획법/" style="font-size: 10px;">동적계획법</a> <a href="/tags/백준/" style="font-size: 10px;">백준</a> <a href="/tags/시뮬레이션/" style="font-size: 10px;">시뮬레이션</a> <a href="/tags/알고리즘/" style="font-size: 10px;">알고리즘</a> <a href="/tags/전체-탐색/" style="font-size: 15px;">전체 탐색</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1955189341680369"
+     data-ad-slot="8423559701"
+     data-ad-format="auto"
+     data-full-width-responsive="false"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Woosik Yoon |
+                  <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="20px" src="https://ghbtns.com/github-btn.html?user=suitelab&amp;repo=suitelab.github.io&amp;type=star&amp;count=true">
+                  </iframe>
+                </p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'suitelab';
+    
+    
+    var disqus_url = 'http://suitee.me/2018/07/29/n-gram/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
